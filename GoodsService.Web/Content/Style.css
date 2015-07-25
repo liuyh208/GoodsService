@@ -1,0 +1,349 @@
+﻿toolbar {
+    border-color: #ddd;
+    border-style: none none solid none;
+    border-width: thin;
+    text-align: right;
+}
+
+.titlePane {
+    background-color: rgb(247, 247, 247);
+    color: #ffffff;
+    /*color:#ddd*/
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+
+li {
+    list-style: none;
+}
+
+#left {
+    z-Index: 999;
+    width: 50px;
+    height: 100%;
+    float: left;
+    background-color: #2F4654;
+    padding: 0;
+}
+
+#map {
+    height: 100%;
+}
+
+#right {
+    position: absolute;
+    z-Index: 999;
+    float: left;
+    margin-left: 50px;
+    margin-top: 30px;
+}
+
+#rightpanel {
+    float: left;
+    width: 280px;
+    display: none;
+}
+
+
+
+#left ul {
+    width: 50px;
+    height: 400px;
+    /*text-align: center;*/
+    padding: 0px;
+    margin: auto;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+
+    #left ul li {
+        /*border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;*/
+       width:48px;height:60px; text-align:center; padding-top:20px;
+        float: left;
+        color: white;
+        /*margin-top: 20px;*/
+        border:1px solid #2F4654;
+        font-size: 14px;
+    }
+
+li:hover {
+    cursor: pointer;
+}
+
+#search {
+    position: absolute;
+    z-Index: 999;
+}
+
+#rightsearch {
+    position: absolute;
+    z-Index: 999;
+    width: 160px;
+    height: 40px;
+    right: 60px;
+    top: 40px;
+}
+
+    #rightsearch ul {
+        margin-top: 2px;
+        padding-left: 2px;
+    }
+
+        #rightsearch ul li {
+            float: left;
+            margin-left: 15px;
+            text-align: center;
+        }
+
+        /*#rightsearch ul img {
+            height: 30px;
+            width: 30px;
+        }*/
+
+.clickclass {
+    background-color: #006EBD;
+}
+
+#search {
+    margin-top: 10px;
+    margin-left: 20px;
+    float: left;
+    width: 445px;
+    height: 40px;
+}
+
+    #search img {
+        float: right;
+    }
+
+#searchinput {
+    height: 30px;
+    width: 321.5px;
+    font-size: 16px;
+    margin-top: 40px;
+    margin-left: 60px;
+    border: 1px solid #4C8EFC;
+}
+
+#searchtype {
+    width: 325px;
+    height: 300px;
+    background-color: white;
+    margin-top: -16px;
+    margin-left: 60px;
+    display: none;
+}
+
+    #searchtype ul {
+        padding-left: 30px;
+        padding-top: 10px;
+    }
+
+        #searchtype ul li {
+            line-height: 25px;
+            margin-top: 20px;
+            list-style: none;
+        }
+
+            #searchtype ul li > a {
+                font-size: 12px;
+            }
+
+            #searchtype ul li a:hover {
+                color: #1e8ae5;
+                border-bottom: solid 1px #1e8ae5;
+                cursor: pointer;
+            }
+
+            #searchtype ul li span {
+                font-weight: bold;
+                color: #1e8ae5;
+                font-size: 16px;
+            }
+
+#result {
+    width: 325px;
+    max-height: 400px;
+    background-color: white;
+    display: none;
+    margin-left: 60px;
+}
+#result3 {
+    width: 325px;
+    max-height: 400px;
+    background-color: white;
+    display: none;
+    margin-left: 60px;
+}
+#result2 {
+    width: 325px;
+    height: 300px;
+    overflow: hidden;
+    background-color: white;
+    display: none;
+    margin-left: 60px;
+  
+}
+
+    #result2 .datagrid-body {
+        overflow: hidden;
+    }
+
+#headpane {
+    width: 280px;
+    height: 25px;
+    padding-top: 5px;
+    background-color: #F2F2F2;
+    text-align: center;
+}
+
+    #headpane img {
+        float: right;
+        margin-right: 20px;
+        margin-top: -10px;
+    }
+
+    #headpane a:hover {
+        cursor: pointer;
+    }
+
+#resultitle {
+    width: 325px;
+    height: 30px;
+    padding-top: 15px;
+    background-color: #F2F2F2;
+    text-align: center;
+}
+
+select {
+    display: none;
+}
+
+.lab {
+    background-color: aqua;
+}
+
+
+
+#Div_colorDialog {
+    position: absolute;
+    z-index: 10;
+    float: left;
+    border: 1px solid #999999;
+    width: 150px;
+    background-color: #f9f8f7;
+    font-size: 12px;
+    display: none;
+}
+#Div_colorDialog2{
+    /*position: absolute;*/
+    z-index: 10;
+    /*float: left;*/
+    border: 1px solid #999999;
+    width: 150px;
+    background-color: #f9f8f7;
+    font-size: 12px;
+    display: none;
+    margin-left:70px;
+}
+
+css_Grid {
+    color: Black;
+    background-color: #ffffee;
+    border-color: #5D7B9D;
+    border-width: 1px;
+    border-style: solid;
+    width: 100%;
+}
+
+.css_GridTR {
+    color: White;
+    background-color: #5D7B9D;
+}
+
+
+
+.css_TR_c1 {
+    background-color: #ffffee;
+    color: #000000;
+}
+
+.css_TR_c2 {
+    background-color: #ffffaa;
+    color: #993300;
+}
+
+.css_TR_move {
+    background-color: #eaa;
+    color: #123456;
+}
+
+.css_TR_CK {
+    background-color: #ee0;
+    color: #333333;
+}
+
+#detailtable td {
+    width: 100px;
+}
+
+.tabs-panels {
+    border-style: none;
+}
+#EquipmentQuery td {
+    width:70px
+}
+ #LineDetail  td {
+    width:70px
+}
+  #Line  td {
+    width:70px
+}
+#Line {
+}
+
+    #Line ul li {
+        float: left;
+        margin-left: 40px;
+    }
+
+#detailtable2 td {
+    text-align: center;
+    border: 1px solid #5D7B9D;
+    text-align: right;
+}
+
+#detailtable2 th {
+    border: 1px solid #5D7B9D;
+   
+}
+
+#detailtable td {
+    text-align: center;
+    border: 1px solid #5D7B9D;
+}
+
+#detailtable th {
+    border: 1px solid #5D7B9D;
+   
+}
+
+#IndicateDetail2 td {
+    text-align: center;
+    border: 1px solid #5D7B9D;
+    width: 140px;
+}
+
+#IndicateDetail2 th {
+   
+    border: 1px solid #5D7B9D;
+    text-align: center;
+}
