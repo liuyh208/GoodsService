@@ -9,7 +9,7 @@ function btLoginClick() {
 
 function btGetClick() {
 
-    DoAction("/api/TakeOutGoods", { PageIndex: 0, PageSize: 15, StartDate: '2015-07-16 00:00:00', EndDate: '2015-07-23 23:59:59' }, "Get", function (d) {
+    DoAction("/api/TakeOutGoods", { PageIndex: 0, PageSize: 15, StartDate: '2015-07-25 00:00:00', EndDate: '2015-07-25 23:59:59' }, "Get", function (d) {
         alert(d.Data.length);
     });
 }
@@ -17,7 +17,7 @@ function btGetClick() {
 
 function btTakeOverClick() {
 
-    DoAction("/api/TakeOutGoods/Over", { Code: 1000063 }, "POST", function (d) {
+    DoAction("/api/TakeOutGoods/Over", { Code: '2001001125,2001001124,2001001122' }, "POST", function (d) {
         alert(d.Success);
     });
 }

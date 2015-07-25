@@ -105,9 +105,20 @@ namespace GoodsService.Services
             {
                 return RequestResult.FailureResult("用户未登录");
             }
-
-            string temp = "UPDATE [dbo].[OP_TakeOutGoods]	SET  [Status] = {1} WHERE code='{0}'";
-            var sql = string.Format(temp, request.Code, (int)EnumTakeOutStatus.Over);
+            var codes = request.Code.Split(',');
+            if (codes.Length == 0)
+            {
+                return RequestResult.FailureResult("请输入提货单号");
+            }
+            string strw = string.Format(" isDelete=0 and userid='{0}'", ss.UserID);
+            string cc = "1";
+            foreach (var code in codes)
+            {
+                cc = cc + "," + code;
+            }
+            strw =strw+  string.Format(" and code in ({0})", cc);
+            string temp = "UPDATE [dbo].[OP_TakeOutGoods]	SET  [Status] = {1} WHERE {0}";
+            var sql = string.Format(temp, strw, (int)EnumTakeOutStatus.Over);
             var i = SqlHelper.Execute(sql);
             if (i > 0)
             {
