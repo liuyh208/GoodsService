@@ -30,7 +30,7 @@ namespace GoodsService.Services
             {
                 return RequestResult.FailureResult("用户未登录");
             }
-            string strw = string.Format(" isDelete=0 and userid='{0}'", ss.UserID);
+            string strw = string.Format(" t.IsDelete=0 and t.Userid='{0}'", ss.UserID);
             if (!string.IsNullOrWhiteSpace(request.StartStationID))
             {
                 strw = strw + string.Format(" and startstarionID='{0}'", request.StartStationID);
@@ -41,24 +41,44 @@ namespace GoodsService.Services
             }
             if (request.Status > 0)
             {
-                strw = strw + string.Format(" and Status={0}", request.Status);
+                strw = strw + string.Format(" and t.GoodsStatus={0}", request.Status);
             }
             else
             {
-                strw = strw + string.Format(" and Status>={0}", (int)EnumTakeOutStatus.Send);
+                strw = strw + string.Format(" and t.GoodsStatus>={0}", (int)EnumTakeOutStatus.Send);
             }
             if (request.StartDate.HasValue)
             {
-                strw = strw + string.Format(" and date>='{0}'", request.StartDate.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+                strw = strw + string.Format(" and t.GetGoodsDate>='{0}'", request.StartDate.Value.ToString("yyyy-MM-dd HH:mm:ss"));
             }
 
             if (request.EndDate.HasValue)
             {
-                strw = strw + string.Format(" and date<'{0}'", request.EndDate.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+                strw = strw + string.Format(" and t.GetGoodsDate<'{0}'", request.EndDate.Value.ToString("yyyy-MM-dd HH:mm:ss"));
             }
 
             string temp =
-                "select top {0} * from ( select row_number() over(order by date desc) as rownumber,* from OP_TakeOutGoods where {2}) A where rownumber > {1}";
+                "select top {0} A.* from ( select row_number() over(order by date desc) as rownumber,* from OP_In_Consign where {2}) A where rownumber > {1}";
+
+
+            temp = @"
+ select top {0} A.* from ( select row_number() over(order by GetGoodsDate desc) as rownumber, Code,
+ConsignerCode as CustomerID,
+ConsignerName as CustomName,
+GetGoodsDate as Date,
+GoodsStatus as Status,
+UserID,
+UserName,
+Source,
+ConsigneeAddress as Address,
+ServiceType,
+GoodsCount as Num,
+StartStationID,
+StartStationName as StartStation,
+EndStationID,
+EndStationName as EndStation,
+PaiDanDate as SendDate
+	FROM [dbo].[OP_In_Consign] t where {2}) A where rownumber > {1}";
 
             var sql = string.Format(temp, request.PageSize, request.StartRow(),strw);
             
@@ -79,7 +99,7 @@ namespace GoodsService.Services
             {
                 return RequestResult.FailureResult("用户未登录");
             }
-            string temp = "UPDATE [dbo].[OP_TakeOutGoods]	SET  [IsPrint] = {1} WHERE code='{0}'";
+            string temp = "UPDATE [dbo].[OP_In_Consign]	SET  [IsPrint] = {1} WHERE code={0}";
             var sql = string.Format(temp, request.Code, 1);
             var i = SqlHelper.Execute(sql);
             if (i > 0)
@@ -117,7 +137,7 @@ namespace GoodsService.Services
                 cc = cc + "," + code;
             }
             strw =strw+  string.Format(" and code in ({0})", cc);
-            string temp = "UPDATE [dbo].[OP_TakeOutGoods]	SET  [Status] = {1} WHERE {0}";
+            string temp = "UPDATE [OP_In_Consign]	SET  [GoodsStatus] = {1} WHERE {0}";
             var sql = string.Format(temp, strw, (int)EnumTakeOutStatus.Over);
             var i = SqlHelper.Execute(sql);
             if (i > 0)
@@ -144,7 +164,7 @@ namespace GoodsService.Services
             }
            
          
-            request.ID=Guid.NewGuid();
+
             request.Date=DateTime.Now.ToString2();
             request.SendDate=DateTime.Now.ToString2();
             request.Status = EnumTakeOutStatus.Send;
@@ -157,7 +177,7 @@ namespace GoodsService.Services
             var sql = request.ToInsertSql();
             var i = SqlHelper.Execute(sql);
 
-            //sql =string.Format( "select code from OP_TakeOutGoods  where id='{0}'",request.ID);
+            //sql =string.Format( "select code from OP_In_Consign  where id='{0}'",request.ID);
             // SqlHelper.ExecuteSql<int>(sql);
             if (i>0)
             {
@@ -219,7 +239,7 @@ namespace GoodsService.Services
             }
             strw = strw + string.Format(" and code in ({0})", cc);
 
-            var sql = string.Format("update OP_TakeOutGoods set isDelete=1 where {0}", strw);
+            var sql = string.Format("update OP_In_Consign set isDelete=1 where {0}", strw);
             var i = SqlHelper.Execute(sql);
 
             if (i > 0)
@@ -254,7 +274,7 @@ namespace GoodsService.Services
             strw = strw + string.Format(" and code in ({0})", cc);
 
             string temp =
-                "select * from OP_TakeOutGoods where {0}";
+                "select * from OP_In_Consign where {0}";
 
             var sql = string.Format(temp, strw);
 
