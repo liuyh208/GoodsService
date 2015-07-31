@@ -17,7 +17,7 @@ function btGetClick() {
 
 function btTakeOverClick() {
 
-    DoAction("/api/TakeOutGoods/Over", { Code: '2001001125,2001001124,2001001122' }, "POST", function (d) {
+    DoAction("/api/TakeOutGoods/Over", { Code: '1000471805,1000471804' }, "POST", function (d) {
         alert(d.Success);
     });
 }
@@ -32,14 +32,14 @@ function btAddClick() {
 function btEditClick() {
 
 
-    DoAction("/api/TakeOutGoods/Edit", { Code: 1000063, Person: '赵云', StartStation: "许昌", EndStation: "荆州", Num: 4, Address: '帝都路132号曹操府', Source: "手机下单", ServiceType: "站点送货" }, "POST", function (d) {
+    DoAction("/api/TakeOutGoods/Edit", { Code: 1000471805, Person: '赵云', StartStation: "许昌", EndStation: "荆州", Num: 4, Address: '帝都路132号曹操府', Source: "手机下单", ServiceType: "站点送货" }, "POST", function (d) {
         alert(d.Msg);
     });
 }
 
 function btPrintClick() {
 
-    DoAction("/api/TakeOutGoods/print", { Code: 1000063 }, "POST", function (d) {
+    DoAction("/api/TakeOutGoods/print", { Code: 1000471805 }, "POST", function (d) {
         alert(d.Success);
     });
 }
@@ -67,14 +67,14 @@ function btCustomerClick() {
 
 function btGetByCodeClick() {
 
-    DoAction("/api/TakeOutGoods/GetByCode", { Codes: '2001000029,2001000028,2001000030' }, "Get", function (d) {
+    DoAction("/api/TakeOutGoods/GetByCode", { Codes: '1000471805,1000471804' }, "Get", function (d) {
         alert(d.Data.length);
     });
 }
 
 function btDeleteClick() {
 
-    DoAction("/api/TakeOutGoods/Delete", { Codes: '2001000053,2001000054,2001000052' }, "Post", function (d) {
+    DoAction("/api/TakeOutGoods/Delete", { Codes: '1000471805,1000471804' }, "Post", function (d) {
         alert(d.Data.length);
     });
 }
