@@ -17,6 +17,7 @@ namespace GoodsService.Domain
    
     public class TakeOutGoodsDto
     {
+        public string ID { get; set; }
         /// <summary>
         /// 提货单号
         /// </summary>
@@ -149,13 +150,13 @@ namespace GoodsService.Domain
 
         public string ToInsertSql()
         {
-            string temp = @"INSERT INTO [OP_In_Consign]	([GetGoodsDate],[ConsigneeName],[StartStationName]
+            string temp = @"INSERT INTO [OP_In_GetGoods]	([GetGoodsDate],[ConsigneeName],[StartStationName]
 		,[EndstationName],[GoodsCount],[ServiceType],[ConsigneeAddress],[UserID],[UserName],[IsDelete],[GoodsStatus],[PaiDanDate],[ConsignerCode]
-		,[ConsignerName],[Source],[IsPrint],StartStationID,EndStationID,ConsignID,BillDate,FinalStationID,GoodsName)
+		,[ConsignerName],[Source],[IsPrint],StartStationID,EndStationID,GetGoodsCode,BillDate,FinalStationID,GoodsName,paidanren,recordor,RecordDate)
 	VALUES
 		('{0}','{1}','{2}'
         ,'{3}',{4},'{5}','{6}','{7}','{8}',0,{15},'{9}','{10}'
-        ,'{11}','{12}',0,'{13}','{14}','{16}','{17}','','')";
+        ,'{11}','{12}',0,'{13}','{14}','{16}','{17}','','','{8}','{8}','{17}')";
             return string.Format(temp,  Date, Person, StartStation,
                 EndStation, Num, ServiceType, Address, UserID, UserName, SendDate, CustomerID,
                 CustomName, Source,StartStationID,EndStationID,(int)Status,Guid.NewGuid(),DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
@@ -169,7 +170,7 @@ namespace GoodsService.Domain
         public string EndStationID { get; set; }
          public string ToUpdateSql()
          {
-             string temp = @"UPDATE [OP_In_Consign]
+             string temp = @"UPDATE [OP_In_GetGoods]
 	SET  [GetGoodsDate] = '{1}'	,[ConsigneeName] ='{2}',[StartStationName] = '{3}'
 		,[EndstationName] = '{4}',[GoodsCount] = {5},[ServiceType] = '{6}'
 		,[ConsigneeAddress] = '{7}',[StartStationID]='{8}',[EndStationID]='{9}'

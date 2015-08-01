@@ -9,7 +9,7 @@ function btLoginClick() {
 
 function btGetClick() {
 
-    DoAction("/api/TakeOutGoods", { PageIndex: 0, PageSize: 15, StartDate: '2015-07-25 00:00:00', EndDate: '2015-07-25 23:59:59' }, "Get", function (d) {
+    DoAction("/api/TakeOutGoods", { PageIndex: 0, PageSize: 15, StartDate: '2015-08-01 00:00:00', EndDate: '2015-08-01 23:59:59' }, "Get", function (d) {
         alert(d.Data.length);
     });
 }
@@ -17,7 +17,7 @@ function btGetClick() {
 
 function btTakeOverClick() {
 
-    DoAction("/api/TakeOutGoods/Over", { Code: '1000471805,1000471804' }, "POST", function (d) {
+    DoAction("/api/TakeOutGoods/Over", { Code: '1000000000,1000000001' }, "POST", function (d) {
         alert(d.Success);
     });
 }
@@ -32,14 +32,14 @@ function btAddClick() {
 function btEditClick() {
 
 
-    DoAction("/api/TakeOutGoods/Edit", { Code: 1000471805, Person: '赵云', StartStation: "许昌", EndStation: "荆州", Num: 4, Address: '帝都路132号曹操府', Source: "手机下单", ServiceType: "站点送货" }, "POST", function (d) {
+    DoAction("/api/TakeOutGoods/Edit", { Code: 1000000000, Person: '赵云', StartStation: "许昌", EndStation: "荆州", Num: 4, Address: '帝都路132号曹操府', Source: "手机下单", ServiceType: "站点送货" }, "POST", function (d) {
         alert(d.Msg);
     });
 }
 
 function btPrintClick() {
 
-    DoAction("/api/TakeOutGoods/print", { Code: 1000471805 }, "POST", function (d) {
+    DoAction("/api/TakeOutGoods/print", { Code: 1000000000 }, "POST", function (d) {
         alert(d.Success);
     });
 }
@@ -67,19 +67,20 @@ function btCustomerClick() {
 
 function btGetByCodeClick() {
 
-    DoAction("/api/TakeOutGoods/GetByCode", { Codes: '1000471805,1000471804' }, "Get", function (d) {
+    DoAction("/api/TakeOutGoods/GetByCode", { Codes: '1000000000,1000000001' }, "Get", function (d) {
         alert(d.Data.length);
     });
 }
 
 function btDeleteClick() {
 
-    DoAction("/api/TakeOutGoods/Delete", { Codes: '1000471805,1000471804' }, "Post", function (d) {
+    DoAction("/api/TakeOutGoods/Delete", { Codes: '1000000000,1000000001' }, "Post", function (d) {
         alert(d.Data.length);
     });
 }
 
 function DoAction(url, data, type, su) {
+    //"http://116.90.85.94:8010" +
     $.ajax({
         url: url,
         data: data,

@@ -25,7 +25,9 @@ namespace GoodsService.Services
         /// <returns>IList{TakeOutGoodsDto}.</returns>
         public RequestResult Get(GetTakeOutGoodsRequest request)
         {
-            var ss = Session.Get<LoginResultDto>("login");
+
+            var session = SessionFactory.GetOrCreateSession();
+            var ss = session.Get<LoginResultDto>("login");
             if (ss == null)
             {
                 return RequestResult.FailureResult("用户未登录");
@@ -58,11 +60,12 @@ namespace GoodsService.Services
             }
 
             string temp =
-                "select top {0} A.* from ( select row_number() over(order by date desc) as rownumber,* from OP_In_Consign where {2}) A where rownumber > {1}";
+                "select top {0} A.* from ( select row_number() over(order by date desc) as rownumber,* from OP_In_GetGoods where {2}) A where rownumber > {1}";
 
 
             temp = @"
  select top {0} A.* from ( select row_number() over(order by GetGoodsDate desc) as rownumber, Code,
+GetGoodsCode as ID,
 ConsignerCode as CustomerID,
 ConsignerName as CustomName,
 GetGoodsDate as Date,
@@ -78,7 +81,7 @@ StartStationName as StartStation,
 EndStationID,
 EndStationName as EndStation,
 PaiDanDate as SendDate
-	FROM [dbo].[OP_In_Consign] t where {2}) A where rownumber > {1}";
+	FROM [dbo].[OP_In_GetGoods] t where {2}) A where rownumber > {1}";
 
             var sql = string.Format(temp, request.PageSize, request.StartRow(),strw);
             
@@ -99,7 +102,7 @@ PaiDanDate as SendDate
             {
                 return RequestResult.FailureResult("用户未登录");
             }
-            string temp = "UPDATE [dbo].[OP_In_Consign]	SET  [IsPrint] = {1} WHERE code={0}";
+            string temp = "UPDATE [dbo].[OP_In_GetGoods]	SET  [IsPrint] = {1} WHERE code={0}";
             var sql = string.Format(temp, request.Code, 1);
             var i = SqlHelper.Execute(sql);
             if (i > 0)
@@ -137,7 +140,7 @@ PaiDanDate as SendDate
                 cc = cc + "," + code;
             }
             strw =strw+  string.Format(" and code in ({0})", cc);
-            string temp = "UPDATE [OP_In_Consign]	SET  [GoodsStatus] = {1} WHERE {0}";
+            string temp = "UPDATE [OP_In_GetGoods]	SET  [GoodsStatus] = {1} WHERE {0}";
             var sql = string.Format(temp, strw, (int)EnumTakeOutStatus.Over);
             var i = SqlHelper.Execute(sql);
             if (i > 0)
@@ -177,7 +180,7 @@ PaiDanDate as SendDate
             var sql = request.ToInsertSql();
             var i = SqlHelper.Execute(sql);
 
-            //sql =string.Format( "select code from OP_In_Consign  where id='{0}'",request.ID);
+            //sql =string.Format( "select code from OP_In_GetGoods  where id='{0}'",request.ID);
             // SqlHelper.ExecuteSql<int>(sql);
             if (i>0)
             {
@@ -239,7 +242,7 @@ PaiDanDate as SendDate
             }
             strw = strw + string.Format(" and code in ({0})", cc);
 
-            var sql = string.Format("update OP_In_Consign set isDelete=1 where {0}", strw);
+            var sql = string.Format("update OP_In_GetGoods set isDelete=1 where {0}", strw);
             var i = SqlHelper.Execute(sql);
 
             if (i > 0)
@@ -274,7 +277,7 @@ PaiDanDate as SendDate
             strw = strw + string.Format(" and code in ({0})", cc);
 
             string temp =
-                "select * from OP_In_Consign where {0}";
+                "select * from OP_In_GetGoods where {0}";
 
             var sql = string.Format(temp, strw);
 
