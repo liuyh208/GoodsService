@@ -39,7 +39,7 @@ namespace GoodsService.Services
             }
             if (!string.IsNullOrWhiteSpace(request.EndStationID))
             {
-                strw = strw + string.Format(" and EndStationID='{0}'", request.EndStationID);
+                strw = strw + string.Format(" and FinalStationID='{0}'", request.EndStationID);
             }
             if (request.Status > 0)
             {
@@ -74,12 +74,12 @@ UserID,
 UserName,
 Source,
 ConsigneeAddress as Address,
-ServiceType,
+CASE WHEN  ToCenter=1 THEN '中心自提' WHEN ToStation=1 THEN '站点送货' ELSE '站点自提' END as  ServiceType,
 GoodsCount as Num,
 StartStationID,
 StartStationName as StartStation,
-EndStationID,
-EndStationName as EndStation,
+FinalStationID as EndStationID,
+FinalStationName as EndStation,
 PaiDanDate as SendDate
 	FROM [dbo].[OP_In_GetGoods] t where {2}) A where rownumber > {1}";
 

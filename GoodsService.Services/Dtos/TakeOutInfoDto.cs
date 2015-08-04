@@ -150,16 +150,33 @@ namespace GoodsService.Domain
 
         public string ToInsertSql()
         {
+            //CASE WHEN  ToCenter=1 THEN '中心自提' WHEN ToStation=1 THEN '站点送货' ELSE '站点自提' END as  ServiceType,
+
+            int tocenter = 0;
+            int toStation = 0;
+
+            switch (ServiceType)
+            {
+                case "中心自提":
+                    tocenter = 1;
+                    break;
+                case "站点送货":
+                    toStation = 1;
+                    break;
+               
+            }
+
+            
             string temp = @"INSERT INTO [OP_In_GetGoods]	([GetGoodsDate],[ConsigneeName],[StartStationName]
-		,[EndstationName],[GoodsCount],[ServiceType],[ConsigneeAddress],[UserID],[UserName],[IsDelete],[GoodsStatus],[PaiDanDate],[ConsignerCode]
-		,[ConsignerName],[Source],[IsPrint],StartStationID,EndStationID,GetGoodsCode,BillDate,FinalStationID,GoodsName,paidanren,recordor,RecordDate)
+		,[FinalStationName],[GoodsCount],[ServiceType],[ConsigneeAddress],[UserID],[UserName],[IsDelete],[GoodsStatus],[PaiDanDate],[ConsignerCode]
+		,[ConsignerName],[Source],[IsPrint],StartStationID,FinalStationID,GetGoodsCode,BillDate,GoodsName,paidanren,recordor,RecordDate,tocenter,tostation)
 	VALUES
 		('{0}','{1}','{2}'
         ,'{3}',{4},'{5}','{6}','{7}','{8}',0,{15},'{9}','{10}'
-        ,'{11}','{12}',0,'{13}','{14}','{16}','{17}','','','{8}','{8}','{17}')";
+        ,'{11}','{12}',0,'{13}','{14}','{16}','{17}','','{8}','{8}','{17}',{18},{19})";
             return string.Format(temp,  Date, Person, StartStation,
                 EndStation, Num, ServiceType, Address, UserID, UserName, SendDate, CustomerID,
-                CustomName, Source,StartStationID,EndStationID,(int)Status,Guid.NewGuid(),DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                CustomName, Source,StartStationID,EndStationID,(int)Status,Guid.NewGuid(),DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),tocenter,toStation);
         }
     }
 
@@ -170,14 +187,28 @@ namespace GoodsService.Domain
         public string EndStationID { get; set; }
          public string ToUpdateSql()
          {
+             int tocenter = 0;
+             int toStation = 0;
+
+             switch (ServiceType)
+             {
+                 case "中心自提":
+                     tocenter = 1;
+                     break;
+                 case "站点送货":
+                     toStation = 1;
+                     break;
+
+             }
+
              string temp = @"UPDATE [OP_In_GetGoods]
 	SET  [GetGoodsDate] = '{1}'	,[ConsigneeName] ='{2}',[StartStationName] = '{3}'
 		,[EndstationName] = '{4}',[GoodsCount] = {5},[ServiceType] = '{6}'
 		,[ConsigneeAddress] = '{7}',[StartStationID]='{8}',[EndStationID]='{9}'
-        ,[ConsignerCode]='{10}',[ConsignerName]='{11}'
+        ,[ConsignerCode]='{10}',[ConsignerName]='{11}',toCenter={12},tostation={13}
 	WHERE code={0}";
              return string.Format(temp, Code, Date, Person, StartStation,
-                 EndStation, Num, ServiceType, Address,StartStationID,EndStationID,CustomerID,CustomName);
+                 EndStation, Num, ServiceType, Address,StartStationID,EndStationID,CustomerID,CustomName,tocenter,toStation);
          }
     }
 }
