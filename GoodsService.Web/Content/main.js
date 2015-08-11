@@ -1,7 +1,7 @@
 ﻿
 
 function btLoginClick() {
-    DoAction("/api/login", { Pwd: '1', Name: '赵凤达' }, "POST", function (d) {
+    DoAction("/api/login", { Pwd: '1', Name: '刘兰涛' }, "POST", function (d) {
         alert(d.Data.UserName);
     });
     
@@ -9,7 +9,7 @@ function btLoginClick() {
 
 function btGetClick() {
 
-    DoAction("/api/TakeOutGoods", { PageIndex: 0, PageSize: 15, StartDate: '2015-08-06 00:00:00', EndDate: '2015-08-06 23:59:59' }, "Get", function (d) {
+    DoAction("/api/TakeOutGoods", { PageIndex: 0, PageSize: 15, StartDate: '2015-08-10 00:00:00', EndDate: '2015-08-10 23:59:59' }, "Get", function (d) {
         alert(d.Data.length);
     });
 }

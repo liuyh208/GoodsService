@@ -68,6 +68,7 @@ namespace GoodsService.Services
 GetGoodsCode as ID,
 ConsignerCode as CustomerID,
 ConsignerName as CustomName,
+ConsigneeName as Person,
 GetGoodsDate as Date,
 GoodsStatus as Status,
 UserID,
