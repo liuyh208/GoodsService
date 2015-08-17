@@ -278,7 +278,25 @@ PaiDanDate as SendDate
             strw = strw + string.Format(" and code in ({0})", cc);
 
             string temp =
-                "select * from OP_In_GetGoods where {0}";
+                @"select Code,
+GetGoodsCode as ID,
+ConsignerCode as CustomerID,
+ConsignerName as CustomName,
+ConsigneeName as Person,
+GetGoodsDate as Date,
+GoodsStatus as Status,
+UserID,
+UserName,
+Source,
+ConsigneeAddress as Address,
+CASE WHEN  ToCenter=1 THEN '中心自提' WHEN ToStation=1 THEN '站点送货' ELSE '站点自提' END as  ServiceType,
+GoodsCount as Num,
+StartStationID,
+StartStationName as StartStation,
+FinalStationID as EndStationID,
+FinalStationName as EndStation,
+PaiDanDate as SendDate
+	FROM [dbo].[OP_In_GetGoods] where {0}";
 
             var sql = string.Format(temp, strw);
 

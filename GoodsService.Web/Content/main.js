@@ -67,7 +67,7 @@ function btCustomerClick() {
 
 function btGetByCodeClick() {
 
-    DoAction("/api/TakeOutGoods/GetByCode", { Codes: '1000000000,1000000001' }, "Get", function (d) {
+    DoAction("/api/TakeOutGoods/GetByCode", { Codes: '1000002134' }, "Get", function (d) {
         alert(d.Data.length);
     });
 }
