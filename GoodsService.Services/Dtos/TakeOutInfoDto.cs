@@ -203,8 +203,8 @@ namespace GoodsService.Domain
 
              string temp = @"UPDATE [OP_In_GetGoods]
 	SET  [GetGoodsDate] = '{1}'	,[ConsigneeName] ='{2}',[StartStationName] = '{3}'
-		,[EndstationName] = '{4}',[GoodsCount] = {5},[ServiceType] = '{6}'
-		,[ConsigneeAddress] = '{7}',[StartStationID]='{8}',[EndStationID]='{9}'
+		,[FinalStationName] = '{4}',[GoodsCount] = {5},[ServiceType] = '{6}'
+		,[ConsigneeAddress] = '{7}',[StartStationID]='{8}',[FinalStationID]='{9}'
         ,[ConsignerCode]='{10}',[ConsignerName]='{11}',toCenter={12},tostation={13}
 	WHERE code={0}";
              return string.Format(temp, Code, Date, Person, StartStation,
